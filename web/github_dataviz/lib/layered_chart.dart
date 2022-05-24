@@ -69,7 +69,7 @@ class _LayeredChartState extends State<LayeredChart> {
     double xWidth = (endX - startX) / numPoints;
     double capRangeX = capSize * cos(capTheta);
     double tanCapTheta = tan(capTheta);
-    final curvePoints = <double>[];
+    final curvePoints = List.filled(numPoints, 0.0);
     for (int i = 0; i < m; i++) {
       List<int> series = dataToPlot[i].series;
       int n = series.length;
@@ -88,8 +88,8 @@ class _LayeredChartState extends State<LayeredChart> {
         cpv.value = MathUtils.map(
             j.toDouble(), 0, (numPoints - 1).toDouble(), 0, (n - 1).toDouble());
         curve.progressiveGet(cpv);
-        curvePoints.add(MathUtils.map(
-            max(0, cpv.value!), 0, maxValues[i].toDouble(), 0, graphHeight));
+        curvePoints[j] = MathUtils.map(
+            max(0, cpv.value!), 0, maxValues[i].toDouble(), 0, graphHeight);
       }
       paths.add(Path());
       capPaths.add(Path());
